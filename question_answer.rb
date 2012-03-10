@@ -2,12 +2,8 @@ class QuestionAnswer
 
   attr_accessor :word_list
   
-  def initialize(words=false)
-    if words == false   
-      word_list = File.open("words.txt").readlines.map(&:chomp)
-    else
-      word_list = File.open(word_list).readlines.map(&:chomp)
-    end
+  def initialize(word_list=false)   
+    word_list = File.open("words.txt").readlines.map(&:chomp) if word_list == false
     @word_list = word_list 
   end
   
