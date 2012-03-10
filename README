@@ -1,3 +1,9 @@
+if you have a text file you want to use
+ QuestionAnswer.new(File.open("/directory_where_words_are/words.txt").readlines.map(&:chomp)).write
+elsif the textfile is in the same directory
+ QuestionAnswer.new.write
+end
+
 Hashes Rule!
 
 Given a list of words (words.txt), generate two output
