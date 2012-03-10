@@ -1,8 +1,6 @@
-if you have a text file you want to use
- QuestionAnswer.new(File.open("/directory_where_words_are/words.txt").readlines.map(&:chomp)).write
-elsif the textfile is in the same directory
- QuestionAnswer.new.write
-end
+QuestionAnswer.new(File.open("/directory_where_words_are/words.txt").readlines.map(&:chomp)).write
+or if words.txt in the same directory
+QuestionAnswer.new.write
 
 Hashes Rule!
 
