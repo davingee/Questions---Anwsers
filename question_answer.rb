@@ -2,58 +2,56 @@ class QuestionAnswer
 
   attr_accessor :word_list
   
-  def initialize(word_list=false)   
-    word_list = File.open("words.txt").readlines.map(&:chomp) if word_list == false
-    @word_list = word_list 
+  def initialize
+    @word_list = File.open('words.txt').readlines.map(&:chomp)
   end
   
   def answers
     # Get all the possible unique words (answers) from the wordlist that are a length of greater then 3
     @answers = []
     @word_list.uniq.each do |word|
-      if word.length > 3
-        @answers << word
-      end
+      @answers << word if word.length > 3
     end
     @answers
   end  
   
   def four_letter_sequences(word)
     # Get all the 4 letter sequences (questions) from all the answers
-    word.scan(/./).each_cons(4).map { |group| group.join('') }
+    word.scan(/./).each_cons(4).map { |characters| characters.join('') }.uniq
   end
 
   def questions_hash
-    # Creates a questions hash with all the possilbe answers
+    # Creates a questions hash with all the possible answers
     @questions = {}
     answers.each do |answer|
-      posible_questions = four_letter_sequences(answer).uniq.flatten
+      posible_questions = four_letter_sequences(answer)
       posible_questions.each do |question|
-        if @questions[question]
-          @questions[question] << answer
-        else
-          @questions[question] = [answer]
-        end
+        (@questions[question] ||= []) << answer
       end
     end
     @questions
   end
   
-  def delete_questions_with_more_then_one_answer
+  def remove_questions_with_more_then_one_answer
     # Delete any question that has more then one answer
-    for question in questions_hash.keys
-      unless @questions[question].count == 1
-        @questions.delete(question)
-      end
+    questions_hash.reject do |key, value|
+      value.count != 1
     end
-    @questions
   end
   
-  def write
+  def write_files
     # Writes the hash keys to questions.txt and the values to answers.txt
-    question_and_answers_to_write = delete_questions_with_more_then_one_answer
-    File.open("questions.txt", 'w') {|f| f.write(question_and_answers_to_write.keys.join("\n")) }
-    File.open("answers.txt", 'w') {|f| f.write(question_and_answers_to_write.values.join("\n")) }
+    question_and_answers_to_write = remove_questions_with_more_then_one_answer
+    write_file('questions.txt', question_and_answers_to_write.keys)
+    write_file('answers.txt', question_and_answers_to_write.values.flatten)
   end
+
+  def write_file(file, data)
+    File.open(file, 'w') do |f|
+      f.write(data.join("\n"))
+    end
+  end
+
 end
-QuestionAnswer.new.write
+
+QuestionAnswer.new.write_files
