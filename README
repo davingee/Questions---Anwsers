@@ -1,7 +1,5 @@
-
 ruby question_answer.rb
 
-Hashes Rule!
 
 Given a list of words (words.txt), generate two output
 files, 'questions' and 'answers'.  'questions' should contain every
