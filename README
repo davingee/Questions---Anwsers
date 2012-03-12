@@ -1,5 +1,3 @@
-QuestionAnswer.new(File.open("/directory_where_words_are/words.txt").readlines.map(&:chomp)).write
-or if words.txt in the same directory
 QuestionAnswer.new.write
 
 Hashes Rule!
