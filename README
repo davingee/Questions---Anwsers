@@ -1,4 +1,5 @@
-QuestionAnswer.new.write
+
+ruby question_answer.rb
 
 Hashes Rule!
 
