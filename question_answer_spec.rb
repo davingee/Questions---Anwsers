@@ -27,14 +27,14 @@ describe QuestionAnswer do
   describe ".questions_hash" do
     it "creates a questions hash with all the possible answers where 'arro' has two answers" do
       q_a.questions_hash.should == {
-        "10th" => ["10th"], 
-        "rrow" => ["arrows"], 
-        "rows" => ["arrows"], 
-        "arro" => ["arrows", "carrots"], 
-        "carr" => ["carrots"], 
-        "rrot" => ["carrots"], 
-        "give" => ["give"], 
-        "rots" => ["carrots"]
+        :"10th" => ["10th"], 
+        :rrow => ["arrows"], 
+        :rows => ["arrows"], 
+        :arro => ["arrows", "carrots"], 
+        :carr => ["carrots"], 
+        :rrot => ["carrots"], 
+        :give => ["give"], 
+        :rots => ["carrots"]
       }
     end
   end
@@ -42,13 +42,13 @@ describe QuestionAnswer do
   describe ".remove_questions_with_more_then_one_answer" do
     it "should not include any question that has more then one answer" do
       q_a.remove_questions_with_more_then_one_answer.should == {
-        "10th" => ["10th"], 
-        "rrow" => ["arrows"], 
-        "rows" => ["arrows"], 
-        "carr" => ["carrots"], 
-        "rrot" => ["carrots"], 
-        "give" => ["give"], 
-        "rots" => ["carrots"]
+        :"10th" => ["10th"], 
+        :rrow => ["arrows"], 
+        :rows => ["arrows"], 
+        :carr => ["carrots"], 
+        :rrot => ["carrots"], 
+        :give => ["give"], 
+        :rots => ["carrots"]
       }
     end
   end
@@ -56,9 +56,9 @@ describe QuestionAnswer do
   describe ".write_files" do
     it "should write the hash keys to questions.txt and the hash values to answers.txt" do
       q_a.expects(:write_file).with('questions.txt',
-        ['rrow', '10th', 'rows', 'carr', 'rrot', 'rots', 'give'])
+        [:"10th", :carr, :rrot, :give, :rrow, :rots, :rows])
       q_a.expects(:write_file).with('answers.txt',
-        ['arrows', '10th', 'arrows', 'carrots', 'carrots', 'carrots', 'give'])
+        ['10th', 'carrots', 'carrots', 'give', 'arrows', 'carrots', 'arrows'])
       q_a.write_files
     end
   end
