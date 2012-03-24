@@ -1,5 +1,7 @@
 ruby question_answer.rb
 
+ruby -rprofile question_answer.rb
+
 
 Given a list of words (words.txt), generate two output
 files, 'questions' and 'answers'.  'questions' should contain every
