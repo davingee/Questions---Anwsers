@@ -26,7 +26,7 @@ class QuestionAnswer
     answers.each do |answer|
       posible_questions = four_letter_sequences(answer)
       posible_questions.each do |question|
-        (@questions[question] ||= []) << answer
+        (@questions[question.to_sym] ||= []) << answer
       end
     end
     @questions
